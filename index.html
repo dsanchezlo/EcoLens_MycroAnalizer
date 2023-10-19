@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Imagen nueva desde URL externa</title>
+</head>
+<body>
+    <button id="enviarBtn">Enviar POST</button>
+    <h1>Imagen desde URL externa</h1>
+    <img src="http://192.168.137.211/1024x768.jpg" alt="Ejemplo de imagen en línea">
+    <script>
+      document.getElementById('enviarBtn').addEventListener('click', function() {
+                // Datos que deseas enviar en la solicitud POST
+                var datos = { mensaje: "flashON" };
+
+                // Convierte los datos a una cadena JSON
+                var jsonDatos = JSON.stringify(datos);
+
+                // Configura la solicitud POST
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+
+                // Maneja la respuesta de la solicitud POST
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        alert("Solicitud POST exitosa");
+                    } else {
+                        alert("Error en la solicitud POST");
+                    }
+                };
+
+                // Envía la solicitud POST con los datos
+                xhr.send(jsonDatos);
+            });
+    </script>
+
+</body>
+</html>
