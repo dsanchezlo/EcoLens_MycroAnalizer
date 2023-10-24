@@ -4,34 +4,53 @@
     <title>Imagen nueva desde URL externa</title>
 </head>
 <body>
-    <button id="enviarBtn">Enviar POST</button>
-    <h1>Imagen desde URL externa</h1>
-    <img src="http://192.168.137.211/1024x768.jpg" alt="Ejemplo de imagen en línea">
+    <button id="enviarBtn">Send POST</button>
+    <button id="startStreaming">Start streaming</button>
+    <button id="stopStreaming">End Streaming</button>
+    <h1>Automatischer Bildwechsel</h1>
+    <img src="http://192.168.137.103/640x480.jpg" alt="Ejemplo de imagen en línea">
     <script>
+
+      document.getElementById('startStreaming').addEventListener('click', function() {
+        var xhr = new XMLHttpRequest();
+        var pathimg = "/imageStreaming"; // Hier den gewünschten Pfad eintragen
+        xhr.open("GET", pathimg, true);
+      
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                alert("GET-Anfrage erfolgreich.");
+            } else {
+                alert("Fehler bei der GET-Anfrage.");
+            }
+        };
+
+        xhr.send();
+      });
+
       document.getElementById('enviarBtn').addEventListener('click', function() {
-                // Datos que deseas enviar en la solicitud POST
-                var datos = { mensaje: "flashON" };
+        // Datos que deseas enviar en la solicitud POST
+        var datos = { mensaje: "flashON" };
+        var pathflash = "/flash";
+        // Convierte los datos a una cadena JSON
+        var jsonDatos = JSON.stringify(datos);
 
-                // Convierte los datos a una cadena JSON
-                var jsonDatos = JSON.stringify(datos);
+        // Configura la solicitud POST
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", pathflash, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
 
-                // Configura la solicitud POST
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", "/", true);
-                xhr.setRequestHeader("Content-Type", "application/json");
+        // Maneja la respuesta de la solicitud POST
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                alert("Solicitud POST exitosa");
+            } else {
+                alert("Error en la solicitud POST");
+            }
+        };
 
-                // Maneja la respuesta de la solicitud POST
-                xhr.onload = function() {
-                    if (xhr.status === 200) {
-                        alert("Solicitud POST exitosa");
-                    } else {
-                        alert("Error en la solicitud POST");
-                    }
-                };
-
-                // Envía la solicitud POST con los datos
-                xhr.send(jsonDatos);
-            });
+        // Envía la solicitud POST con los datos
+        xhr.send(jsonDatos);
+      });
     </script>
 
 </body>
