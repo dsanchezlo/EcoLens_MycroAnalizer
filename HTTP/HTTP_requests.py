@@ -5,14 +5,7 @@ import requests
 class requestsHTTP(BaseHTTPRequestHandler):
     #GET request HTTP
     def do_GET(self):
-        if self.path == "/imageStreaming":
-            # Behandle Anfragen an den Pfad "/path1"
-            self.send_response(200)
-            self.send_header("Content-type", "text/html")
-            self.end_headers()
-            self.wfile.write(b"Dies ist Pfad 1.")
-
-        elif self.path == "/":
+        if self.path == "/":
             # Behandle Anfragen an den Pfad "/path2"
             self.send_response(200)
             self.send_header("Content-type", "text/html")
@@ -23,6 +16,23 @@ class requestsHTTP(BaseHTTPRequestHandler):
                 html_content = file.read()
 
             self.wfile.write(bytes(html_content, "utf-8"))
+
+        elif self.path == "/js/script.js":
+            self.send_response(200)
+            self.send_header("Content-type", "text/javascript")
+            self.end_headers()
+
+            # open and read the JavaScript file
+            with open("js/script.js", "r") as file:
+                js_content = file.read()
+
+            self.wfile.write(bytes(js_content, "utf-8"))
+        elif self.path == "/imageStreaming":
+            # Behandle Anfragen an den Pfad "/path1"
+            self.send_response(200)
+            self.send_header("Content-type", "text/html")
+            self.end_headers()
+            self.wfile.write(b"Dies ist Pfad 1.")
 
         else:
             # Standardverhalten für unbekannte Pfade
@@ -52,6 +62,7 @@ class requestsHTTP(BaseHTTPRequestHandler):
 
 class RunServer:
     def __init__(self, host, port, flash):
+        print(host)
         self.HOST = host
         self.PORT = port
         global urlFlash
