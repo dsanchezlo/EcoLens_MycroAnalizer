@@ -20,6 +20,6 @@ try:
 except requests.exceptions.RequestException as e:
     print(f"Failed to access the URL. Error: {e}")
 
-server = RunServer(HOST, PORT, urlFlash)
+server = RunServer(HOST, PORT, urlFlash, url)
 server.run()
 server.close()

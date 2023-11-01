@@ -1,4 +1,5 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
+from image_Processing import getImage
 import json
 import requests
 
@@ -27,12 +28,32 @@ class requestsHTTP(BaseHTTPRequestHandler):
                 js_content = file.read()
 
             self.wfile.write(bytes(js_content, "utf-8"))
+
+        elif self.path == "/css/design.css":
+            self.send_response(200)
+            self.send_header("Content-type", "text/css")  # Setze den Content-Type auf CSS
+            self.end_headers()
+
+            # Öffne und lese den Inhalt der CSS-Datei
+            with open("css/design.css", "r") as file:
+                css_content = file.read()
+
+            self.wfile.write(bytes(css_content, "utf-8"))
+
         elif self.path == "/imageStreaming":
             # Behandle Anfragen an den Pfad "/path1"
             self.send_response(200)
-            self.send_header("Content-type", "text/html")
+            self.send_header("Content-type", "image/jpeg")  # Setzen Sie den korrekten Content-Type für Ihr Bild
             self.end_headers()
-            self.wfile.write(b"Dies ist Pfad 1.")
+
+            done, image_data = getImage(url)
+            if done==True:
+                self.wfile.write(image_data.tobytes())
+            else:
+                image_path = "images/error.jpg"  # Ersetzen Sie dies durch den tatsächlichen Pfad zu Ihrem Bild
+                with open(image_path, "rb") as image_file:
+                    image_error = image_file.read()
+                    self.wfile.write(image_error)
 
         else:
             # Standardverhalten für unbekannte Pfade
@@ -61,12 +82,13 @@ class requestsHTTP(BaseHTTPRequestHandler):
             print("PATH: " + self.path + " not found")
 
 class RunServer:
-    def __init__(self, host, port, flash):
-        print(host)
+    def __init__(self, host, port, flash, link):
         self.HOST = host
         self.PORT = port
         global urlFlash
+        global url
         urlFlash = flash
+        url = link
 
     def run(self):
         self.server = HTTPServer((self.HOST, self.PORT), requestsHTTP)

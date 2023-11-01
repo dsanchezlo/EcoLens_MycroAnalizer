@@ -1,14 +1,36 @@
-/*document.getElementById('startStreaming').addEventListener('click', function(){
-  const imageElement = document.getElementById('image');
-  const imageUrl = "http://192.168.137.103/640x480.jpg";
-  const interval = 1000;
+function getImage() {
+  var xhr = new XMLHttpRequest();
+  var pathimg = "/imageStreaming"; // Hier den gewünschten Pfad eintragen
+  xhr.open("GET", pathimg, true);
+  xhr.responseType = "blob"; // Daten als Binärdaten empfangen
 
-  imageElement.src = imageUrl;
+  return new Promise(function(resolve, reject) {
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        var blob = xhr.response; // Binärdaten des Bildes
+        resolve(blob); // Die Blob-Daten auflösen, wenn die Anfrage erfolgreich ist
+      } else {
+        reject("Fehler bei der GET-Anfrage."); // Die Promise wird abgelehnt, wenn die Anfrage fehlschlägt
+      }
+    };
+
+    xhr.send();
+  });
+}
+
+document.getElementById('startStreaming').addEventListener('click', function() {
+  var imgElement = document.getElementById('imageElement');
+  const interval = 100;
 
   function changeImage() {
-      //imageElement.src = imageUrl;
-      const timestamp = new Date().getTime();
-      imageElement.src = `${imageUrl}?timestamp=${timestamp}`;
+    getImage()
+      .then(function(blob) {
+        var imageUrl = URL.createObjectURL(blob); // URL für das Bild erstellen
+        imageElement.src = imageUrl
+      })
+      .catch(function(error) {
+        alert(error);
+      });
   }
 
   // Initialen Bildwechsel aufrufen
@@ -21,22 +43,6 @@
 document.getElementById('stopStreaming').addEventListener('click', function() {
   // Intervall mit dem gespeicherten Verweis löschen
   clearInterval(intervalID);
-});*/
-
-document.getElementById('startStreaming').addEventListener('click', function() {
-  var xhr = new XMLHttpRequest();
-  var pathimg = "/imageStreaming"; // Hier den gewünschten Pfad eintragen
-  xhr.open("GET", pathimg, true);
-
-  xhr.onload = function() {
-      if (xhr.status === 200) {
-          alert("GET-Anfrage erfolgreich.");
-      } else {
-          alert("Fehler bei der GET-Anfrage.");
-      }
-  };
-
-  xhr.send();
 });
 
 document.getElementById('enviarBtn').addEventListener('click', function() {
@@ -54,7 +60,7 @@ document.getElementById('enviarBtn').addEventListener('click', function() {
   // Maneja la respuesta de la solicitud POST
   xhr.onload = function() {
       if (xhr.status === 200) {
-          alert("Solicitud POST exitosa");
+          //alert("Flash activated");
       } else {
           alert("Error en la solicitud POST");
       }
