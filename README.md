@@ -14,6 +14,7 @@ To run the code:
 La magnificación óptica pasiva se realiza a través de modificar la distancia del lente teniendo en cuenta la siguiente ecuación:
 
 $$ \frac{1}{f} = \frac{1}{d} + \frac{1}{D} $$
+
 $$ m = \frac{h}{H} = \frac{d}{D}  $$
 
 
@@ -37,8 +38,11 @@ Para el caso en concreto de la cámara OV2640 se tienen las siguientes especific
 Tomando en cuenta que la distancia entre el lente y el sensor es de D=11mm para el microscopio, el desarrollo que se emplea para determinar el tamaño de cada píxel en la imagen es:
 
 $$ \frac{1}{f} = \frac{1}{d} + \frac{1}{D} = \frac{1}{\frac{h}{H}D}+\frac{1}{D}$$
+
 $$ \frac{1}{4.8mm} = \frac{1}{\frac{h}{3590\mu m}11mm}+\frac{1}{11mm}$$
+
 $$ h=2077.94\mu m$$
+
 $$ h_{pixel}= \frac{h}{1600} = \frac{2077.94\mu m}{1600} = 1.7370\mu m$$
 
 Para realizar la validación de los cálculos se tomó una captura a un pelo cuyo tamaño esperado esta entre los 11μm y 170μm de modo que se contó cuantos pixeles tiene de ancho en la imagen tal y como se observa a continuación:
