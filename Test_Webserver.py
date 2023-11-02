@@ -2,10 +2,10 @@ from HTTP.HTTP_requests import RunServer
 import cv2
 import requests
 
-url = "http://192.168.137.226/640x480.jpg"
-urlFlash="http://192.168.137.226/800x600.jpg"
+url = "http://192.168.137.105/640x480.jpg"
+urlFlash="http://192.168.137.105/800x600.jpg"
 
-HOST = "192.168.1.114"
+HOST = "192.168.137.1"
 #HOST = "localhost"
 PORT = 8000
 

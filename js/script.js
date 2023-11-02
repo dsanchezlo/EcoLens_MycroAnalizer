@@ -1,3 +1,28 @@
+const fileInput = document.getElementById('fileInput');
+const downloadButton = document.getElementById('downloadButton');
+const filenameInput = document.getElementById('filenameInput');
+const imgElement = document.getElementById('imageElement');
+
+downloadButton.addEventListener('click', () => {
+    const imageSource = imgElement.src;
+    const userFilename = filenameInput.value || 'EcoLens_MycroAnalizer_muestra.jpg';
+
+    //userFilename = userFilename.replace(/[^\w\s.-áéíóúÁÉÍÓÚüÜñÑ]/g, '');
+
+    // Zeige eine Bestätigungsbox an
+    const confirmDownload = window.confirm(`La imagen se descargará bajo el siguiente nombre: "${userFilename}" \n desea continuar?`);
+
+    if (confirmDownload) {
+       const link = document.createElement('a');
+       link.href = imageSource;
+       link.download = userFilename;
+       document.body.appendChild(link);
+       link.click();
+       document.body.removeChild(link);
+    }
+
+});
+
 function getImage() {
   var xhr = new XMLHttpRequest();
   var pathimg = "/imageStreaming"; // Hier den gewünschten Pfad eintragen
@@ -19,7 +44,6 @@ function getImage() {
 }
 
 document.getElementById('startStreaming').addEventListener('click', function() {
-  var imgElement = document.getElementById('imageElement');
   const interval = 100;
 
   function changeImage() {

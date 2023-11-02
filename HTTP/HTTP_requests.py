@@ -24,7 +24,7 @@ class requestsHTTP(BaseHTTPRequestHandler):
             self.end_headers()
 
             # open and read the JavaScript file
-            with open("js/script.js", "r") as file:
+            with open("js/script.js", "r", encoding='utf-8') as file:
                 js_content = file.read()
 
             self.wfile.write(bytes(js_content, "utf-8"))
