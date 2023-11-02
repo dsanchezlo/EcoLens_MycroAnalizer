@@ -21,19 +21,17 @@ Para el caso en concreto de la cámara OV2640 se tienen las siguientes especific
 
 
 <table>
-<tr><td>Sensor OV2640</td></tr>
+<tr><td>Sensor OV2640</td><td></td></tr>
 <tr><td>Resolución</td><td>1600x1200 (2mp)</td></tr>
 <tr><td>Tamaño</td><td>3590μmx2684μm</td></tr>
 <tr><td>Tamaño del píxel</td><td>2.2μmx2.2μm</td></tr>
-<tr><td></td><td></td></tr>
 </table>
 
 <table>
-<tr><td>Lente del OV2640</td></tr>
+<tr><td>Lente del OV2640</td><td></td></tr>
 <tr><td>Longitud Focal</td><td>4.8mm±5%</td></tr>
 <tr><td>Apertura</td><td>2.4±5%</td></tr>
 <tr><td>Campo de visión</td><td>65°</td></tr>
-<tr><td></td><td></td></tr>
 </table>
 
 Tomando en cuenta que la distancia entre el lente y el sensor es de D=11mm para el microscopio, el desarrollo que se emplea para determinar el tamaño de cada píxel en la imagen es:
