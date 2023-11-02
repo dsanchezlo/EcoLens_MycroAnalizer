@@ -9,7 +9,7 @@ To run the code:
 4. Run the file Test_Webserver.py
 
 ## Magnificación Óptica
-<img src="markdown_images/Magnificacion.png"  width="30%">
+<img src="markdown_images/Magnificacion.png"  width="50%">
 
 La magnificación óptica pasiva se realiza a través de modificar la distancia del lente teniendo en cuenta la siguiente ecuación:
 
