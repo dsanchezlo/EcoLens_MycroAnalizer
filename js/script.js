@@ -2,6 +2,7 @@ const fileInput = document.getElementById('fileInput');
 const downloadButton = document.getElementById('downloadButton');
 const filenameInput = document.getElementById('filenameInput');
 const imgElement = document.getElementById('imageElement');
+var on = false;
 
 downloadButton.addEventListener('click', () => {
     const imageSource = imgElement.src;
@@ -46,27 +47,32 @@ function getImage() {
 document.getElementById('startStreaming').addEventListener('click', function() {
   const interval = 100;
 
-  function changeImage() {
-    getImage()
-      .then(function(blob) {
-        var imageUrl = URL.createObjectURL(blob); // URL für das Bild erstellen
-        imageElement.src = imageUrl
-      })
-      .catch(function(error) {
-        alert(error);
-      });
+  //Verifica si ya se presionó el botón
+  if (!on){
+    on = true;
+    function changeImage() {
+      getImage()
+        .then(function(blob) {
+          var imageUrl = URL.createObjectURL(blob); // URL für das Bild erstellen
+          imageElement.src = imageUrl
+        })
+        .catch(function(error) {
+          alert(error);
+        });
+    }
+
+    // Initialen Bildwechsel aufrufen
+    changeImage();
+
+    // Wiederhole den Bildwechsel in regelmäßigen Abständen
+    intervalID = setInterval(changeImage, interval);
   }
-
-  // Initialen Bildwechsel aufrufen
-  changeImage();
-
-  // Wiederhole den Bildwechsel in regelmäßigen Abständen
-  intervalID = setInterval(changeImage, interval);
 });
 
 document.getElementById('stopStreaming').addEventListener('click', function() {
   // Intervall mit dem gespeicherten Verweis löschen
   clearInterval(intervalID);
+  on = false;
 });
 
 document.getElementById('enviarBtn').addEventListener('click', function() {

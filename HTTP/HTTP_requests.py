@@ -2,6 +2,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from image_Processing import getImage
 import json
 import requests
+import threading
 
 class requestsHTTP(BaseHTTPRequestHandler):
     #GET request HTTP
@@ -93,8 +94,10 @@ class RunServer:
     def run(self):
         self.server = HTTPServer((self.HOST, self.PORT), requestsHTTP)
         print("Server running...")
-        self.server.serve_forever()
+        self.server_thread = threading.Thread(target=self.server.serve_forever)
+        self.server_thread.start()
 
     def close(self):
-        self.server.server_close()
+        self.server.server_close()  # Detener el servidor
+        self.server_thread.join()  # Esperar a que el hilo termine
         print("Server closed")
