@@ -1,8 +1,10 @@
 #include "WifiCam.hpp"
 #include <WiFi.h>
+#include "BluetoothSerial.h"
 
 #define led_FLASH 4
 
+BluetoothSerial BT;
 static const char* WIFI_SSID = "LAPTOP-DS-HCUSUNAV";
 static const char* WIFI_PASS = "contrasena";
 
@@ -13,6 +15,8 @@ WebServer server(80);
 void
 setup()
 {
+
+  BT.begin("ESP32-CAM");
   Serial.begin(115200);
   Serial.println();
   delay(2000);
@@ -62,4 +66,12 @@ void
 loop()
 {
   server.handleClient();
+
+  if (BT.available()>0){
+    char Data=BT.read();
+    if(Data=='0'){
+      BT.println(WiFi.localIP());
+
+    }
+  }
 }

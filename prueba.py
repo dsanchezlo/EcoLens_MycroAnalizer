@@ -3,8 +3,8 @@ import tkinter as tk
 import webbrowser
 import socket
 
-url = "http://192.168.137.111/640x480.jpg"
-urlFlash="http://192.168.137.111/800x600.jpg"
+url = "http://192.168.137.157/640x480.jpg"
+urlFlash="http://192.168.137.157/800x600.jpg"
 
 HOST = socket.gethostbyname(socket.gethostname())
 PORT = 8000
