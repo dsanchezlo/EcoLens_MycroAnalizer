@@ -1,12 +1,10 @@
 #include "WifiCam.hpp"
 #include <WiFi.h>
-#include "BluetoothSerial.h"
 
 #define led_FLASH 4
 
-BluetoothSerial BT;
-static const char* WIFI_SSID = "LAPTOP-DS-HCUSUNAV";
-static const char* WIFI_PASS = "contrasena";
+static const char* AP_SSID = "EcoLensNUM0002";  // SSID für den Access Point
+//static const char* AP_PASS = "admin"; // Passwort für den Access Point
 
 esp32cam::Resolution initialResolution;
 
@@ -15,23 +13,15 @@ WebServer server(80);
 void
 setup()
 {
-
-  BT.begin("ESP32-CAM");
   Serial.begin(115200);
   Serial.println();
   delay(2000);
 
   pinMode(led_FLASH, OUTPUT);
 
-  WiFi.persistent(false);
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(WIFI_SSID, WIFI_PASS);
-  if (WiFi.waitForConnectResult() != WL_CONNECTED) {
-    Serial.println("WiFi failure");
-    delay(5000);
-    ESP.restart();
-  }
-  Serial.println("WiFi connected");
+  // WiFi-Modus auf Access Point (WIFI_AP) setzen
+  WiFi.mode(WIFI_AP);
+  Serial.println(WiFi.softAP(AP_SSID, "", 1, 1, 3) ? "Configuration successful" : "Configuration error!");
 
   {
     using namespace esp32cam;
@@ -45,6 +35,7 @@ setup()
 
     bool ok = Camera.begin(cfg);
     if (!ok) {
+      
       Serial.println("camera initialize failure");
       delay(5000);
       ESP.restart();
@@ -54,7 +45,8 @@ setup()
 
   Serial.println("camera starting");
   Serial.print("http://");
-  Serial.println(WiFi.localIP());
+  Serial.println(WiFi.softAPIP());
+  Serial.println("SSID of the network: " + WiFi.softAPSSID());
 
   digitalWrite(led_FLASH, LOW);
 
@@ -66,12 +58,4 @@ void
 loop()
 {
   server.handleClient();
-
-  if (BT.available()>0){
-    char Data=BT.read();
-    if(Data=='0'){
-      BT.println(WiFi.localIP());
-
-    }
-  }
 }
