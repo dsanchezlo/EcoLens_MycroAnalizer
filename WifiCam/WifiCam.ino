@@ -3,8 +3,11 @@
 
 #define led_FLASH 4
 
-static const char* AP_SSID = "EcoLensNUM0002";  // SSID für den Access Point
-//static const char* AP_PASS = "admin"; // Passwort für den Access Point
+static const char* AP_SSID = "EcoLensNUM0002";  // SSID
+static const char* AP_PASS = "";                // Password
+static const int   Channel = 1;                 // Wifi Channel
+static const int   Hidden = 1;                  // SSID Hiden? True=1, False=0
+static const int   AP_Max_Connection = 3;       // Max devices
 
 esp32cam::Resolution initialResolution;
 
@@ -21,7 +24,7 @@ setup()
 
   // WiFi-Modus auf Access Point (WIFI_AP) setzen
   WiFi.mode(WIFI_AP);
-  Serial.println(WiFi.softAP(AP_SSID, "", 1, 1, 3) ? "Configuration successful" : "Configuration error!");
+  Serial.println(WiFi.softAP(AP_SSID, AP_PASS, Channel, Hidden, AP_Max_Connection) ? "Configuration successful" : "Configuration error!");
 
   {
     using namespace esp32cam;
