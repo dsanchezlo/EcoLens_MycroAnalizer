@@ -2,17 +2,24 @@
 <html>
 <head>
     <title>Imagen nueva desde URL externa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/design.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <button id="enviarBtn">Activate FLASH</button>
-    <button id="startStreaming">Start streaming</button>
-    <button id="stopStreaming">End Streaming</button>
-    <input type="text" id="filenameInput" placeholder="Dateiname eingeben">
-    <button id="downloadButton">Download image</button>
-    <h1>Automatischer Bildwechsel</h1>
-    <img id="imageElement" alt="Ejemplo de imagen en línea">
-    <script src="js/script.js"></script>
-
+    <div class="sidebar">
+        <header>EcoLens Microanalyzer</header>
+        <ul>
+            <li><a id="enviarBtn" href="#"><i class="fa fa-flash "></i>Activate FLASH</a></li>
+            <li><a id="startStreaming" href="#"><i class="fa fa-video-camera"></i>Start streaming</a></li>
+            <li><a id="stopStreaming" href="#"><i class="fa fa-stop"></i>End Streaming</a></li>
+            <li><a id="downloadButton" href="#"><i class="fa fa-download"></i>Download image</a></li>
+            <li><input type="text" id="filenameInput" placeholder="Ingrese un identificador"></li>
+        </ul>
+    </div>
+    <div class="content">
+        <img src="images/Logo640x480.png" id="imageElement" alt="Ejemplo de imagen en línea" width="640" height="480">
+        <script src="js/script.js"></script>
+    </div>
 </body>
 </html>

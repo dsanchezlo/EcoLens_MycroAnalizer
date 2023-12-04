@@ -1,12 +1,80 @@
 /* Stil für den gesamten Körper (body) */
-body {
-    background: #f5f5f5; /* Hellgrau */
-    font-family: 'Arial', sans-serif;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    color: #333; /* Dunkelgrau */
+
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+  font-family: 'Verdana', sans-serif;
 }
+
+.content {
+    background: #f5f5f5; /* Hellgrau */
+    margin-left: 22%;
+    min-margin-left: 235px;
+    padding: 0px;
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 78%;
+    height: 100%;
+    text-align: center;
+    color: #333; /* Dunkelgrau */
+/*    border: 1px solid black; /* add a border */
+}
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    width: 22%;
+    height: 100%;
+    min-width: 245px;
+    background: #052f5c;
+}
+
+.sidebar header {
+    font-size: 22px;
+    color: white;
+    text-align: center;
+    line-height: 100px;
+    background: #0056b3;
+    user-select: none;
+}
+
+.sidebar ul a {
+    display: block;
+    height: 100%;
+    width: 100%;
+    line-height: 80px;
+    font-size: 20px;
+    color: white;
+    padding-left: 40px;
+    box-sizing: border-box;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border_bottom: 1px solid black;
+    transition: 0.4s;
+}
+
+.sidebar ul li:hover a {
+    padding-left: 50px;
+}
+
+.sidebar ul a i {
+  margin-right: 16px;
+}
+
+.sidebar ul input {
+    font-size: 15px;
+    height: 100%;
+    width: 100%;
+    line-height: 30px;
+    background-color:#052f5c;
+    color: white;
+    padding-left: 40px;
+    box-sizing: border-box;
+    border-top: 3px solid rgba(255, 255, 255, 0.5);
+}
+
 
 /* Stil für Überschriften (h1) */
 h1 {
@@ -17,7 +85,7 @@ h1 {
 
 /* Stil für die Schaltflächen (button) */
 button {
-    background: linear-gradient(to bottom, #007bff, #0056b3); /* Blau bis Dunkelblau Verlauf */
+    background: linear-gradient(to bottom, #052f5c, #0056b3); /* Blau bis Dunkelblau Verlauf */
     color: #fff; /* Weiß */
     padding: 10px 20px;
     margin: 5px;
@@ -30,7 +98,10 @@ button {
 /* Stil für das Bild (img) */
 #imageElement {
     max-width: 100%; /* Bild passt sich der Breite des Containers an */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Leichter Grauer Schatten mit Transparenz */
+/*    border: 1px solid black; /* add a border */
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 /* Stil für die Schaltflächen bei Hover (Mausüber) */
