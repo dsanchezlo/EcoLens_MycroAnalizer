@@ -3,10 +3,10 @@ pip install opencv-python
 pip install pyinstaller
 pip install serial
 cd ..
-pyinstaller --onefile prueba.py
+pyinstaller --onefile --icon=images/icon-simple.ico Ecolens_Mycroanalizer.py
 rmdir /s /q build
 cd dist
-move "prueba.exe" "..\"
+move "Ecolens_Mycroanalizer.exe" "..\"
 cd ..
 rmdir /s /q dist
-del prueba.spec
+del Ecolens_Mycroanalizer.spec

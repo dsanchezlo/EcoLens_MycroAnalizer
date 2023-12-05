@@ -1,8 +1,45 @@
+// Warten, bis die Seite vollständig geladen ist
+window.onload = function() {
+    // Rufen Sie die Funktion zum Laden des Bildes auf
+    loadInitialImage();
+};
+
 const fileInput = document.getElementById('fileInput');
 const downloadButton = document.getElementById('downloadButton');
 const filenameInput = document.getElementById('filenameInput');
 const imgElement = document.getElementById('imageElement');
 var on = false;
+
+function loadInitialImage() {
+    loadDefaultImage()
+        .then(function(blob) {
+            var imageUrl = URL.createObjectURL(blob);
+            imgElement.src = imageUrl;
+        })
+        .catch(function(error) {
+            alert(error);
+        });
+}
+
+function loadDefaultImage() {
+  var xhr = new XMLHttpRequest();
+  var pathimg = "/defaultImage"; // Hier den gewünschten Pfad eintragen
+  xhr.open("GET", pathimg, true);
+  xhr.responseType = "blob"; // Daten als Binärdaten empfangen
+
+  return new Promise(function(resolve, reject) {
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        var blob = xhr.response; // Binärdaten des Bildes
+        resolve(blob); // Die Blob-Daten auflösen, wenn die Anfrage erfolgreich ist
+      } else {
+        reject("Fehler bei der GET-Anfrage."); // Die Promise wird abgelehnt, wenn die Anfrage fehlschlägt
+      }
+    };
+
+    xhr.send();
+  });
+}
 
 downloadButton.addEventListener('click', () => {
     const imageSource = imgElement.src;

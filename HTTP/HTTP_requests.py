@@ -3,6 +3,14 @@ from image_Processing import getImage
 import json
 import requests
 import threading
+import os
+import re
+
+def get_connected_ssid():
+    result = os.popen('netsh wlan show interfaces').read()
+    matches = re.findall(r'SSID\s*:\s(.*)', result)
+    if matches:
+        return matches[0].strip()
 
 class requestsHTTP(BaseHTTPRequestHandler):
     #GET request HTTP
@@ -41,17 +49,48 @@ class requestsHTTP(BaseHTTPRequestHandler):
 
             self.wfile.write(bytes(css_content, "utf-8"))
 
-        elif self.path == "/imageStreaming":
+        elif self.path == "images/icon-simple.ico":
+            self.send_response(200)
+            self.send_header("Content-type", "image/x-icon")
+            self.end_headers()
+
+            icon_path = "images/icon-simple.ico"  # Ersetzen Sie dies durch den tatsächlichen Pfad zu Ihrem Favicon
+            with open(icon_path, "rb") as icon_file:
+                icon_data = icon_file.read()
+                self.wfile.write(icon_data)
+
+
+        elif self.path == "/defaultImage":
             # Behandle Anfragen an den Pfad "/path1"
             self.send_response(200)
             self.send_header("Content-type", "image/jpeg")  # Setzen Sie den korrekten Content-Type für Ihr Bild
             self.end_headers()
 
-            done, image_data = getImage(url)
-            if done==True:
-                self.wfile.write(image_data.tobytes())
+            image_path = "images/Logo640x480.png"  # Ersetzen Sie dies durch den tatsächlichen Pfad zu Ihrem Bild
+            with open(image_path, "rb") as image_file:
+                image_error = image_file.read()
+                self.wfile.write(image_error)
+
+        elif self.path == "/imageStreaming":
+            # Behandle Anfragen an den Pfad "/path1"
+            self.send_response(200)
+            self.send_header("Content-type", "image/png")  # Setzen Sie den korrekten Content-Type für Ihr Bild
+            self.end_headers()
+
+            ssid = get_connected_ssid()
+            sequence = "EcoLensNUM"
+
+            if sequence in ssid:
+                done, image_data = getImage(url)
+                if done==True:
+                    self.wfile.write(image_data.tobytes())
+                else:
+                    image_path = "images/error.jpeg"  # Ersetzen Sie dies durch den tatsächlichen Pfad zu Ihrem Bild
+                    with open(image_path, "rb") as image_file:
+                        image_error = image_file.read()
+                        self.wfile.write(image_error)
             else:
-                image_path = "images/error.jpg"  # Ersetzen Sie dies durch den tatsächlichen Pfad zu Ihrem Bild
+                image_path = "images/error.png"  # Ersetzen Sie dies durch den tatsächlichen Pfad zu Ihrem Bild
                 with open(image_path, "rb") as image_file:
                     image_error = image_file.read()
                     self.wfile.write(image_error)
@@ -66,21 +105,26 @@ class requestsHTTP(BaseHTTPRequestHandler):
     #POST request HTTP
     def do_POST(self):
         global urlFlash
-        if self.path == "/flash":  #endpoint for the path
-            content_length = int(self.headers['Content-Length'])
-            post_data = self.rfile.read(content_length).decode('utf-8')
-            post_data = json.loads(post_data)
+        ssid = get_connected_ssid()
+        sequence = "EcoLensNUM"
 
-            #Data received in post_data
-            print("Datos POST recibidos:", post_data)
-            if post_data.get("mensaje") == "flashON":
-                response = requests.get(urlFlash)
+        if sequence in ssid:
+            if self.path == "/flash":  #endpoint for the path
+                content_length = int(self.headers['Content-Length'])
+                post_data = self.rfile.read(content_length).decode('utf-8')
+                post_data = json.loads(post_data)
 
-            self.send_response(200)
-            self.end_headers()
-            #self.wfile.write(b"Solicitud POST recibida exitosamente")
+                #Data received in post_data
+                print("Datos POST recibidos:", post_data)
+                if post_data.get("mensaje") == "flashON":
+                    response = requests.get(urlFlash)
+
+                self.send_response(200)
+                self.end_headers()
+            else:
+                print("PATH: " + self.path + " not found")
         else:
-            print("PATH: " + self.path + " not found")
+            self.wfile.write(b"Error")
 
 class RunServer:
     def __init__(self, host, port, flash, link):
