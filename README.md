@@ -1,5 +1,31 @@
 # EcoLens_MycroAnalizer
 
+# Instrucciones de uso:
+1. Instalación:
+     1.1. Entrar al link https://www.python.org/ e instalar python, en caso de no tenerlo instalado.
+     1.2. Ir a la ruta local EcoLens_MycroAnalizer/lib
+     1.3. Abrir el archivo pythonLIBuser.bat
+2. Encender microscopio:
+     2.1. Conectar el microscopio con el cable proporcionado a un computador o a un cargador de celular (características 5V y máximo 2A).
+3. Añadir red wifi al dispositivo:
+     3.1. Ver el código que aparece en la parte inferior de su microscopio. Debe empezar con "EcoLensNUM". Este será el nombre de la red.
+     3.2. Añadir la red en el dispositivo en el que se desee visulizar la imagen.
+         3.1.1. En el caso de Windows:
+             3.1.1.1. Entrar a configuraciones.
+             3.1.1.2. Acceder a Redes & Internet.
+             3.1.1.3. Entrar a Wi-Fi
+             3.1.1.4. Ahora en Administrar redes conocidas.
+             3.1.1.5. Posteriormente en Añadir red.
+             3.1.1.6. En el nombre de la red se debe ingresar el código de su microscopio, y se debe marcar la opción de "conectar incluso si esta red no está transmitiendo".
+             3.1.1.7. Por último dar click en guardar.
+     3.3. Conectarse a la red de su microscopio, la cual debería ahora aparecer en las redes wifi disponibles.
+4. Ejecutar aplicación.
+     4.1. Entrar a la carpeta EcoLens_MycroAnalizer y abrir la aplicación cuyo nombre es "Ecolens_Mycroanalizer.exe"
+
+
+
+
+
 Tu use this code, the file "pythonLIB.bat" has to be executed
 
 To run the code:
@@ -45,7 +71,7 @@ $$ h=2077.94\mu m$$
 
 $$ h_{pixel}= \frac{h}{1600} = \frac{2077.94\mu m}{1600} = 1.7370\mu m$$
 
-Para realizar la validación de los cálculos se tomó una captura a un pelo cuyo tamaño esperado esta entre los 11μm y 170μm de modo que se contó cuantos pixeles tiene de ancho en la imagen tal y como se observa a continuación:
+Para realizar la validación de los cálculos se tomó una captura a un cabello humano cuyo tamaño esperado esta entre los 11μm y 170μm de modo que se contó cuantos pixeles tiene de ancho en la imagen tal y como se observa a continuación:
 
 <img src="markdown_images/Caracterizacion-Microscopio.png"  width="50%">
 
