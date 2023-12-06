@@ -41,7 +41,7 @@
 
    4.1. Entrar a la carpeta EcoLens_MycroAnalizer y abrir la aplicación cuyo nombre es "Ecolens_Mycroanalizer.exe"
    
-#Uso de la aplicación
+# Uso de la aplicación
 Una vez abierta la aplicación, solo debes dar click en Abrir URL en el navegador.
 Si al dar click en "Start streaming" se muestra una imagen de alerta, significa que ha sido conectado correctamente el microscopio.
 
