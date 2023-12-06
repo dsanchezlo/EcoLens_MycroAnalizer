@@ -10,21 +10,37 @@
      1.3. Abrir el archivo pythonLIBuser.bat
    
 3. Encender microscopio:
+   
      2.1. Conectar el microscopio con el cable proporcionado a un computador o a un cargador de celular (características 5V y máximo 2A).
-4. Añadir red wifi al dispositivo:
+   
+5. Añadir red wifi al dispositivo:
+   
      3.1. Ver el código que aparece en la parte inferior de su microscopio. Debe empezar con "EcoLensNUM". Este será el nombre de la red.
+   
      3.2. Añadir la red en el dispositivo en el que se desee visulizar la imagen.
+   
          3.1.1. En el caso de Windows:
+   
              3.1.1.1. Entrar a configuraciones.
+   
              3.1.1.2. Acceder a Redes & Internet.
+   
              3.1.1.3. Entrar a Wi-Fi
+   
              3.1.1.4. Ahora en Administrar redes conocidas.
+   
              3.1.1.5. Posteriormente en Añadir red.
+   
              3.1.1.6. En el nombre de la red se debe ingresar el código de su microscopio, y se debe marcar la opción de "conectar incluso si esta red no está transmitiendo".
+   
              3.1.1.7. Por último dar click en guardar.
+   
      3.3. Conectarse a la red de su microscopio, la cual debería ahora aparecer en las redes wifi disponibles.
-5. Ejecutar aplicación.
+   
+7. Ejecutar aplicación.
+
      4.1. Entrar a la carpeta EcoLens_MycroAnalizer y abrir la aplicación cuyo nombre es "Ecolens_Mycroanalizer.exe"
+   
 
 
 
