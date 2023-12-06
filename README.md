@@ -41,18 +41,12 @@
 
    4.1. Entrar a la carpeta EcoLens_MycroAnalizer y abrir la aplicación cuyo nombre es "Ecolens_Mycroanalizer.exe"
    
+#Uso de la aplicación
+Una vez abierta la aplicación, solo debes dar click en Abrir URL en el navegador.
+Si al dar click en "Start streaming" se muestra una imagen de alerta, significa que ha sido conectado correctamente el microscopio.
 
 
 
-
-
-Tu use this code, the file "pythonLIB.bat" has to be executed
-
-To run the code:
-1. Change the network name and password on the file .ino
-2. Compile and upload the file .ino to the ESP32-CAM
-3. Get the ip direction of the ESP32-CAM and write it on the .py files
-4. Run the file Test_Webserver.py
 
 ## Magnificación Óptica
 <img src="markdown_images/Magnificacion.png"  width="50%">
