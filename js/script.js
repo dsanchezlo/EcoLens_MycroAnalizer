@@ -5,77 +5,56 @@ const imgElement = document.getElementById('imageElement');
 var on = false;
 
 downloadButton.addEventListener('click', () => {
-    const imageSource = imgElement.src;
-    const userFilename = filenameInput.value || 'EcoLens_MycroAnalizer_muestra.jpg';
+  const imageSource = imgElement.src;
+  const userFilename = filenameInput.value || 'EcoLens_MycroAnalizer_muestra.jpg';
 
-    //userFilename = userFilename.replace(/[^\w\s.-áéíóúÁÉÍÓÚüÜñÑ]/g, '');
+  //userFilename = userFilename.replace(/[^\w\s.-áéíóúÁÉÍÓÚüÜñÑ]/g, '');
 
-    // Zeige eine Bestätigungsbox an
-    const confirmDownload = window.confirm(`La imagen se descargará bajo el siguiente nombre: "${userFilename}" \n desea continuar?`);
+  // Zeige eine Bestätigungsbox an
+  const confirmDownload = window.confirm(`La imagen se descargará bajo el siguiente nombre: "${userFilename}" \n desea continuar?`);
 
-    if (confirmDownload) {
-       const link = document.createElement('a');
-       link.href = imageSource;
-       link.download = userFilename;
-       document.body.appendChild(link);
-       link.click();
-       document.body.removeChild(link);
-    }
+  if (confirmDownload) {
+    const link = document.createElement('a');
+    link.href = imageSource;
+    link.download = userFilename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
 
 });
 
-function getImage() {
-  var xhr = new XMLHttpRequest();
-  var pathimg = "/imageStreaming"; // Hier den gewünschten Pfad eintragen
-  xhr.open("GET", pathimg, true);
-  xhr.responseType = "blob"; // Daten als Binärdaten empfangen
-
-  return new Promise(function(resolve, reject) {
-    xhr.onload = function() {
-      if (xhr.status === 200) {
-        var blob = xhr.response; // Binärdaten des Bildes
-        resolve(blob); // Die Blob-Daten auflösen, wenn die Anfrage erfolgreich ist
-      } else {
-        reject("Fehler bei der GET-Anfrage."); // Die Promise wird abgelehnt, wenn die Anfrage fehlschlägt
-      }
-    };
-
-    xhr.send();
+async function loadModelOptions() {
+  const data = await (await fetch('/env.json')).json();
+  console.log(data)
+  const select = document.getElementById("modelSelection")
+  Object.keys(data).forEach(key => {
+    let option = document.createElement("option");
+    // Set the text and value of the option
+    option.text = key;
+    option.value = key;
+    // Append the option to the select element
+    select.appendChild(option);
   });
 }
 
-document.getElementById('startStreaming').addEventListener('click', function() {
+document.getElementById('startStreaming').addEventListener('click', function () {
   const interval = 100;
-
-  //Verifica si ya se presionó el botón
-  if (!on){
-    on = true;
-    function changeImage() {
-      getImage()
-        .then(function(blob) {
-          var imageUrl = URL.createObjectURL(blob); // URL für das Bild erstellen
-          imageElement.src = imageUrl
-        })
-        .catch(function(error) {
-          alert(error);
-        });
-    }
-
-    // Initialen Bildwechsel aufrufen
-    changeImage();
-
-    // Wiederhole den Bildwechsel in regelmäßigen Abständen
-    intervalID = setInterval(changeImage, interval);
-  }
+  // Start fetching the stream and displaying it
+  const modelSelected = document.getElementById("modelSelection")
+  var selectedModel = (modelSelected.options[modelSelected.selectedIndex]).value;
+  console.log(selectedModel)
+  var streamUrl = `http://127.0.0.1:5000/model/${selectedModel}`; // Hier den gewünschten Pfad eintragen
+  imgElement.src = streamUrl
 });
 
-document.getElementById('stopStreaming').addEventListener('click', function() {
+document.getElementById('stopStreaming').addEventListener('click', function () {
   // Intervall mit dem gespeicherten Verweis löschen
   clearInterval(intervalID);
   on = false;
 });
 
-document.getElementById('enviarBtn').addEventListener('click', function() {
+document.getElementById('enviarBtn').addEventListener('click', function () {
   // Datos que deseas enviar en la solicitud POST
   var datos = { mensaje: "flashON" };
   var pathflash = "/flash";
@@ -88,14 +67,16 @@ document.getElementById('enviarBtn').addEventListener('click', function() {
   xhr.setRequestHeader("Content-Type", "application/json");
 
   // Maneja la respuesta de la solicitud POST
-  xhr.onload = function() {
-      if (xhr.status === 200) {
-          //alert("Flash activated");
-      } else {
-          alert("Error en la solicitud POST");
-      }
+  xhr.onload = function () {
+    if (xhr.status === 200) {
+      //alert("Flash activated");
+    } else {
+      alert("Error en la solicitud POST");
+    }
   };
 
   // Envía la solicitud POST con los datos
   xhr.send(jsonDatos);
 });
+
+loadModelOptions()

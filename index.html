@@ -1,18 +1,53 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Imagen nueva desde URL externa</title>
-    <link rel="stylesheet" type="text/css" href="css/design.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
 </head>
-<body>
-    <button id="enviarBtn">Activate FLASH</button>
-    <button id="startStreaming">Start streaming</button>
-    <button id="stopStreaming">End Streaming</button>
-    <input type="text" id="filenameInput" placeholder="Dateiname eingeben">
-    <button id="downloadButton">Download image</button>
-    <h1>Automatischer Bildwechsel</h1>
-    <img id="imageElement" alt="Ejemplo de imagen en línea">
+
+<body class="m-2 bg-gray-800 overflow-hidden">
+    <div class="flex">
+        <div class="flex justify-center w-1/2 pt-16">
+            <div class="text-center flex flex-col">
+                <button id="enviarBtn"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4">Activate
+                    FLASH</button>
+                <button id="startStreaming"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4">Start
+                    streaming</button>
+                <button id="stopStreaming"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4">End
+                    Streaming</button>
+                <div class="flex mb-4">
+                    <select name="modelSelection" id="modelSelection"
+                        class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    </select>
+                    <button id="addModel"
+                        class="whitespace-nowrap bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Process
+                        image</button>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-col p-4">
+            <h1 class="text-4xl font-bold text-center py-4" style="color: #d36060;">
+                EcoLens MicroAnalyzer
+            </h1>
+            <img id="imageElement" class="h-1/2 mx-auto" alt="Ejemplo de imagen en línea" src="icon.png">
+            <div class="w-full mb-4 m-2 flex flex-col" >
+                <input type="text" id="filenameInput" placeholder="File name">
+                <button id="downloadButton"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Download
+                    image</button>                
+            </div>
+        </div>
+    </div>
     <script src="js/script.js"></script>
 
 </body>
+
 </html>

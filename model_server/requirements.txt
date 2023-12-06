@@ -1,0 +1,6 @@
+opencv-python
+cvzone
+tensorflow
+flask
+flask_cors
+

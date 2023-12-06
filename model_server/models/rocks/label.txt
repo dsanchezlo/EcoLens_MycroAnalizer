@@ -1,0 +1,7 @@
+0 Biotita
+1 Bornita
+2 Crisocola
+3 Malaquita
+4 Moscovita
+5 Pirita
+6 Cuarzo

@@ -2,8 +2,10 @@ from Webserver import Webserver
 import tkinter as tk
 import webbrowser
 import socket
+import subprocess
 
-url = "http://192.168.4.1/1280x720.jpg"
+
+url = "http://192.168.4.1/640x480.jpg"
 urlFlash="http://192.168.4.1/800x600.jpg"
 
 HOST = socket.gethostbyname(socket.gethostname())
@@ -13,11 +15,16 @@ server = Webserver(HOST, PORT, urlFlash, url)
 #Verificar si ya se está ejecutando el servidor
 serverON = False
 
+# inicializar servidor del modelo
+try:
+    subprocess.Popen(["flask", "--app", "model_server/app.py", "run"])
+    print("Model server is running")
+except Exception as err:
+    print(f"Model server error: {err}")
+
+
 def detener_servidor():
-    global serverON
-    if serverON:
-        server.WSclose()
-        serverON = False
+    server.WSclose()
 
 def abrir_url():
     global serverON
@@ -27,10 +34,7 @@ def abrir_url():
         server.WSrun()
 
 def ejecutar():
-    global serverON
-    if not serverON:
-        serverON = True
-        server.WSrun()
+    server.WSrun()
 
 def cerrar_ventana():
     detener_servidor()
@@ -57,4 +61,5 @@ ventana.grid_rowconfigure(0, weight=1)
 ventana.grid_columnconfigure(0, weight=1)
 
 # Ejecutar el loop principal
+ejecutar()
 ventana.mainloop()
